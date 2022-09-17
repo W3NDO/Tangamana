@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :messages
+  resources :taverns
   devise_scope :user do
     get "users", to: "devise/sessions#new"
   end

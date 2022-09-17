@@ -4,14 +4,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  #validation
   validates :email, :password, :password_confirmation, presence: true
   validates :password, :password_confirmation, length: {minimum:8, maximum:24}
 
   before_save :random_name
 
+  #associations
   has_many :messages, dependent: :destroy
-  has_and_belongs_to_many :taverns
+  has_many :visited_taverns, class_name: "TavernMember"
+  has_one :owned_tavern, class_name: "Tavern", foreign_key: "user_id"
 
+  
   private
   def random_name
     return pseudo_name if self.pseudo_name

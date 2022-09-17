@@ -1,4 +1,26 @@
-<div class="container mx-auto">
-    <>
-    <span> Welcome to the Bar, Traveller </span>
+<div>
+    <nav class="bg-orange-600 flex">
+        <ul class="flex flex-row items-stretch justify-center">
+            <% unless @taverns.empty? %>
+                <% @taverns.each do |tavern| %>
+                    <li> 
+                        <div class="m-3 p-2 bg-red-300"> 
+                            <span> <%= tavern.name %> </span>
+                        </div>
+                    </li>
+                <% end %>
+            <% end %>
+            <li> 
+                <div class="m-3 p-2 bg-red-300"> 
+                    <span> Create a New Tavern </span>
+                </div>
+            </li>
+        <ul>
+    </nav>
+    <span class=""> Welcome <%= @current_user.pseudo_name %> </span>
+    <% if @taverns.empty? %>
+        <span> 
+    <% else %>
+
+    <% end %>
 </div>
