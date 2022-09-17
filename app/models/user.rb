@@ -7,13 +7,24 @@ class User < ApplicationRecord
   validates :email, :password, :password_confirmation, presence: true
   validates :password, :password_confirmation, length: {minimum:8, maximum:24}
 
+  before_save :random_name
+
+  has_many :messages, dependent: :destroy
+  has_and_belongs_to_many :taverns
+
+  private
   def random_name
     return pseudo_name if self.pseudo_name
 
-    first = %w(curious pretty cool awesome charming upbeeat diligent creative bright amiable friendly likable polite)
+    first = %w(curious pretty cool awesome charming upbeat diligent creative bright amiable friendly likable polite stunning)
     last = %w(panda aardvark lion tiger albatros eagle badger batsshark lion bison buffalo giraffe rhino elephant leopard tiger)
+    color = %w(6 7 8 9 a b c d)
+    display_color = ["#"]
+    6.times do 
+      display_color << color.sample
+    end
     
-    self.pseudo_name = "#{first.sample}_#{last.sample}_#{rand(0..1000)}"
+    self.update!(color: display_color.join(''), pseudo_name: "#{first.sample}_#{last.sample}_#{rand(0..1000)}" )
     return self.pseudo_name
   end
 end

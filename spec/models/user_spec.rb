@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
   describe "random_name" do
     it "returns a random system generated name" do
       test_user2 = described_class.create(email: "email@example.com", password: "foobar123", password_confirmation: "foobar123")
-      expect(test_user2.random_name.class).to eq String
+      expect(test_user2.pseudo_name.class).to eq String
     end
 
   end
