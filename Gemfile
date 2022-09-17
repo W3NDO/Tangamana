@@ -76,5 +76,6 @@ end
 
 gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
 gem 'hotwire-rails', '~> 0.1.3'
+gem "net-http" #because it was raising this error when running tests => warning: already initialized constant Net::ProtocRetryError
 
 gem "devise", "~> 4.8"
