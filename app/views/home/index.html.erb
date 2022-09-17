@@ -1,26 +1,28 @@
-<div>
-    <nav class="bg-orange-600 flex">
-        <ul class="flex flex-row items-stretch justify-center">
+<div class="w-full">
+    <div class="m-2 p-2 flex flex-col items-center">
+        <p class="m-2"> THE BAR </p>
+        <span class=""> Hey there, <%= @current_user.pseudo_name %>, welcome to The Bar </span>
+    </div>
+    <nav class="bg-orange-600 w-full ">
+        <ul class="flex flex-row items-stretch justify-right">
             <% unless @taverns.empty? %>
                 <% @taverns.each do |tavern| %>
                     <li> 
-                        <div class="m-3 p-2 bg-red-300"> 
-                            <span> <%= tavern.name %> </span>
+                        <div class="m-2 p-2 bg-red-300 rounded"> 
+                            <span> <%= tavern.name %> </span> <!-- onlick use reflex to show the tavern chat -->
                         </div>
                     </li>
                 <% end %>
             <% end %>
             <li> 
-                <div class="m-3 p-2 bg-red-300"> 
-                    <span> Create a New Tavern </span>
+                <div class="m-2 p-2 bg-red-300 rounded"> 
+                    <span> Create a New Tavern </span> <!-- on click use reflex to render partial and create new reflex -->
                 </div>
             </li>
         <ul>
     </nav>
-    <span class=""> Welcome <%= @current_user.pseudo_name %> </span>
-    <% if @taverns.empty? %>
-        <span> 
-    <% else %>
-
-    <% end %>
+    
+    <div class="changeable w-full max-h96 border border-black-300 p-2 m-2">
+        <span> This is where your tavern folk shall discuss topics </span>
+    </div>
 </div>

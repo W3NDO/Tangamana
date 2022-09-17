@@ -10,6 +10,6 @@ class HomeController < ApplicationController
     private 
 
     def get_visited_taverns
-        @taverns =Tavern.find_by(id: current_user.visited_taverns.pluck(:tavern_ids) ) || []
+        @taverns= Tavern.where(id: current_user.visited_taverns.pluck(:tavern_id) ) || []
     end
 end
