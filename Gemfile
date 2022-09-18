@@ -69,6 +69,7 @@ end
 
 group :production do
   gem 'pg', '~> 0.18.4'
+  gem 'postgres', '~> 0.8.1'
 end
 
 group :test do
