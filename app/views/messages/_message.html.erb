@@ -1,17 +1,9 @@
-<div id="<%= dom_id message %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Sender:</strong>
-    <%= message.sender_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Content:</strong>
-    <%= message.content %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this message", message, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this message', edit_message_path(message), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+<div id="<%= dom_id message %>" class=" m-1 p-1 overflow-x-hidden flex flex-cols space-between">
+    <p class="flex-start">
+        <span class="flex-start"> 
+            <span class="min-w-16 rounded-3xl bg-[<%=message.user.color%>]-600 text-black p-2"> <%= message.content %> </span> 
+            </br>
+            <span class=<%="text-xs"%> > <%= message.user.pseudo_name %>  </span>
+        </span>
+    </p>
 </div>

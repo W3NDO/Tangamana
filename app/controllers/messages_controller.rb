@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: %i[ show edit update destroy ]
+  # before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /messages or /messages.json
   def index
@@ -22,14 +23,16 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params)
-    @message.sender_id = current_user.id
+    @message.user_id = current_user.id
 
     respond_to do |format|
       if @message.save
-        # format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
-        format.json { render :show, status: :created, location: @message }
+        format.turbo_stream {}
+        # format.html {redirect_to root_path }
+        # format.json { render :show, status: :created, location: @message }
       else
-        # format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream {render turbo_stream: turbo_stream.replace(@message, partial: "messages/form", locals: {message: @message, tavern_id: @message.tavern_id, user_id: @message.user_id} )}
+        # format.html { redirect_to root_path }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
@@ -58,6 +61,6 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:sender_id, :content)
+      params.require(:message).permit(:user_id, :content, :tavern_id)
     end
 end

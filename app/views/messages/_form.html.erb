@@ -1,19 +1,8 @@
-<%= form_with(model: message, class: "contents") do |form| %>
-  <% if message.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
-
-      <ul>
-        <% message.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_with(model: message, class: "contents", id: dom_id(message)) do |form| %>
   <div class="grid grid-cols-4 gap-3"> 
     <div class="col-start-1 col-end-4">
       <%= form.text_area :content, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.hidden_field :tavern_id, value: tavern_id %>
     </div>
 
     <div class="col-start-4 col-end-5">

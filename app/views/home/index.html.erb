@@ -3,36 +3,39 @@
         <p class="m-2"> THE BAR </p>
         <span class=""> Hey there, <%= @current_user.pseudo_name %>, welcome to The Bar </span>
     </div>
-    <div class="bg-orange-600 w-full ">
-        <ul class="flex flex-row items-stretch justify-right">
-            <% unless @taverns.empty? %>
-                <% @taverns.each do |tavern| %>
-                    <li> 
-                        <div class="m-2 p-2 bg-red-300 rounded"> 
-                            <span> <%= tavern.name %> </span> <!-- onlick use reflex to show the tavern chat -->
-                        </div>
-                    </li>
-                <% end %>
-            <% end %>
-            <li> 
-                <div class="m-2 p-2 bg-red-300 rounded"> 
-                    <span> Create a New Tavern </span> <!-- on click use reflex to render partial and create new reflex -->
-                </div>
-            </li>
-        <ul>
+    <div class="bg-orange-600 w-full flex items-center">
+        <span class="text-white p-3"> This is the <%= @tavern.name.titleize %> tavern, where all topics go </span>
     </div>
     
-    <div class="changeable w-full max-h96 border border-black-300 p-2 m-2 grid grid-rows-8">
-        <div class="w-full h-96 row-start-1 row-end-7" >
-            <% turbo_stream_from "messages" %>
+    <div class="changeable w-full max-h96 border rounded border-black-300 p-2 m-2 grid grid-rows-8 bg-gray-200">
+        <div class="w-full h-96 row-start-1 row-end-7 overflow-y-scroll auto" >
+            <%= turbo_stream_from "messages" %>
             <%= turbo_frame_tag "messages" do %>
                 <% @messages.each do |message| %>
-                    <span> <%= message %> </span>
+                    <div id="<%= dom_id message %>" class=" m-1 p-1 overflow-x-hidden flex flex-cols space-between">
+                        <% if message.user.id != current_user.id %>
+                            <p class="bg-[<%=message.user.color%>]-500 flex-start">
+                                <span class="flex-start"> 
+                                    <span class="min-w-16 rounded-3xl bg-blue-600 text-white p-2"> <%= message.content %> </span> 
+                                    </br>
+                                    <span class=<%="text-xs"%> > <%= message.user.pseudo_name %>  </span>
+                                </span>
+                            </p>
+                        <% else %>
+                            <p class="bg-[<%=message.user.color%>]-500 flex-start">
+                                <span> 
+                                    <span class="min-w-16 rounded-3xl bg-green-600 text-black p-2 col-start-2 col-end-3"> <%= message.content %> </span> 
+                                    </br>
+                                    <span class=<%="text-xs"%> > <%= message.user.pseudo_name %>  </span> 
+                                </span>
+                            </p>
+                        <% end %>
+                    </div>
                 <% end %>
             <% end %>
         </div>
         <div class="row-start-7 row-end-9">
-            <%= render partial: "messages/form", locals: {message: Message.new, tavern: @tavern.id, user: current_user.id}%>
+            <%= render partial: "messages/form", locals: {message: Message.new, tavern_id: @tavern.id, user_id: current_user.id}%>
         </div>
     </div>
 </div>
