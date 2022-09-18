@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :messages, only: %w(create new index)
-  # resources :taverns
+  resources :taverns
   devise_scope :user do
     get "users", to: "devise/sessions#new"
   end
