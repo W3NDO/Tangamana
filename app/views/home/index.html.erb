@@ -3,7 +3,7 @@
         <p class="m-2"> THE BAR </p>
         <span class=""> Hey there, <%= @current_user.pseudo_name %>, welcome to The Bar </span>
     </div>
-    <nav class="bg-orange-600 w-full ">
+    <div class="bg-orange-600 w-full ">
         <ul class="flex flex-row items-stretch justify-right">
             <% unless @taverns.empty? %>
                 <% @taverns.each do |tavern| %>
@@ -20,9 +20,19 @@
                 </div>
             </li>
         <ul>
-    </nav>
+    </div>
     
-    <div class="changeable w-full max-h96 border border-black-300 p-2 m-2">
-        <span> This is where your tavern folk shall discuss topics </span>
+    <div class="changeable w-full max-h96 border border-black-300 p-2 m-2 grid grid-rows-8">
+        <div class="w-full h-96 row-start-1 row-end-7" >
+            <% turbo_stream_from "messages" %>
+            <%= turbo_frame_tag "messages" do %>
+                <% @messages.each do |message| %>
+                    <span> <%= message %> </span>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="row-start-7 row-end-9">
+            <%= render partial: "messages/form", locals: {message: Message.new, tavern: @tavern.id, user: current_user.id}%>
+        </div>
     </div>
 </div>

@@ -73,6 +73,9 @@ GEM
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    cable_ready (4.5.0)
+      rails (>= 5.2)
+      thread-local (>= 1.1.0)
     capybara (3.37.1)
       addressable
       matrix
@@ -223,10 +226,17 @@ GEM
       mini_portile2 (~> 2.8.0)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
+    stimulus_reflex (3.4.1)
+      cable_ready (>= 4.5)
+      nokogiri
+      rack
+      rails (>= 5.2)
+      redis
     strscan (3.0.4)
     tailwindcss-rails (2.0.13)
       railties (>= 6.0.0)
     thor (1.2.1)
+    thread-local (1.1.0)
     timeout (0.3.0)
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
@@ -274,6 +284,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  stimulus_reflex (~> 3.4)
   tailwindcss-rails
   turbo-rails
   tzinfo-data

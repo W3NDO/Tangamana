@@ -8,7 +8,10 @@
     <%= link_to 'New tavern', new_tavern_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="taverns" class="min-w-full">
+  <%# <div id="taverns" class="min-w-full"> %>
+  <%= turbo_stream_from "taverns" %>
+  <%= turbo_frame_tag "taverns" do %>
     <%= render @taverns %>
-  </div>
+  <% end %>
+  <%# </div> %>
 </div>

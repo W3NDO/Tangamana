@@ -22,13 +22,15 @@ class TavernsController < ApplicationController
   # POST /taverns or /taverns.json
   def create
     @tavern = Tavern.new(tavern_params)
-
+    @tavern.user_id = current_user.id
+    
     respond_to do |format|
       if @tavern.save
-        format.html { redirect_to tavern_url(@tavern), notice: "Tavern was successfully created." }
+        TavernMember.create(tavern_id: @tavern.id, user_id: current_user.id)
+        format.html { redirect_to root_path}
         format.json { render :show, status: :created, location: @tavern }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to root_path, notice: "Failed to create new tavern" }
         format.json { render json: @tavern.errors, status: :unprocessable_entity }
       end
     end
@@ -38,10 +40,10 @@ class TavernsController < ApplicationController
   def update
     respond_to do |format|
       if @tavern.update(tavern_params)
-        format.html { redirect_to tavern_url(@tavern), notice: "Tavern was successfully updated." }
+        format.html { redirect_to root_path }
         format.json { render :show, status: :ok, location: @tavern }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to root_path, notice: "Failed to update tavern" }
         format.json { render json: @tavern.errors, status: :unprocessable_entity }
       end
     end
@@ -65,6 +67,6 @@ class TavernsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tavern_params
-      params.require(:tavern).permit(:name, :topic, :user_id)
+      params.require(:tavern).permit(:name, :topic)
     end
 end
