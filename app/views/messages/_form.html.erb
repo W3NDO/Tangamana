@@ -1,7 +1,7 @@
 <%= form_with(model: message, class: "contents", id: dom_id(message)) do |form| %>
   <div class="grid grid-cols-4 gap-3"> 
     <div class="col-start-1 col-end-4">
-      <%= form.text_area :content, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.text_area :content, rows: 4, autofocus: "true", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 text-black w-full" %>
       <%= form.hidden_field :tavern_id, value: tavern_id %>
     </div>
 

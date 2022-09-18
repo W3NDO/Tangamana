@@ -11,16 +11,27 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-2 px-5 flex">
-      <% if notice %>
-        <p class="alert alert-success" ><%= notice %> </p>
-      <% end %>
-      <% if alert %>
-        <p class="alert alert-danger" ><%= alert %> </p>
+  <body class="h-screen bg-gradient-to-tr from-pink-100 via-red-100 to-yellow-100 dark:from-pink-800 dark:via-red-800 dark:to-yellow-800 dark:text-white">
+    <main class="container mx-auto p-5">
+      <% if notice || alert %>
+        <div class="fixed right-8 top-8">
+          <p class="<%= (notice and not notice.empty?) ? "bg-yellow-400/20 animate-fade-out" : "bg-red-400/20" %> p-3 w-content text-black dark:text-white" ><%= notice || alert %> </p>
+        </div>
       <% end %>
 
       <%= yield %>
     </main>
+
+    <script>
+      function scrollToBottom() {
+        const chatBox = document.getElementById("chat");
+        console.log(chatBox);
+        if (!chatBox) return;
+        
+        chatBox.scrollTo({top: chatBox.scrollHeight});
+      }
+    
+      scrollToBottom();
+    </script>
   </body>
 </html>

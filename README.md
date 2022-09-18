@@ -11,3 +11,6 @@ Later on I plan to add in functionality for other users to create their rooms.
 
 ### Hotwire??
 Hotwire is used to update the messages as they come in. More specifically turbo and turbo streams. 
+
+### Issues
+Scroll to latest message is still tricky rn. Working to fix that. 

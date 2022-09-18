@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   # before_action :set_message, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  before_action :set_user
 
   # GET /messages or /messages.json
   def index
@@ -26,6 +27,7 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
 
     respond_to do |format|
+      p "RP ==> #{request.params}"
       if @message.save
         format.turbo_stream {}
         # format.html {redirect_to root_path }
@@ -63,4 +65,9 @@ class MessagesController < ApplicationController
     def message_params
       params.require(:message).permit(:user_id, :content, :tavern_id)
     end
+
+    def set_user
+      @user = current_user
+    end
+
 end
